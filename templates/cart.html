@@ -16,14 +16,14 @@
           {% for card in selected_cards %}
           <tr>
             <td>{{ card.name }}</td>
-            <td>{{ card.price }} рублей</td>
+            <td>{{ card.price }}₽</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
 
       <div class="text-right mb-4">
-        <h3>Итого: {{ total|int }} рублей</h3>
+        <h3>Итого: {{ total|int }}₽</h3>
       </div>
     </div>
 
