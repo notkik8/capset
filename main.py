@@ -6,18 +6,18 @@ from data import db_session
 
 
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+application = Flask(__name__)
+application.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 
 
 
-@app.route('/')
+@application.route('/')
 def index():
     db_sess = db_session.create_session()
     return render_template('index.html')
 
 
-@app.route("/generate", methods=["GET", "POST"])
+@application.route("/generate", methods=["GET", "POST"])
 def generate():
 
     db_sess = db_session.create_session()
@@ -28,7 +28,7 @@ def generate():
     return render_template("generate.html", bases=bases, switches=switches, keycaps=keycaps)
 
 
-@app.route("/add_to_cart", methods=["POST"])
+@application.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
     data = request.json
     card_ids = data.get("cardIds", [])
@@ -39,7 +39,7 @@ def add_to_cart():
     return jsonify({"success": True})
 
 
-@app.route("/cart")
+@application.route("/cart")
 def cart():
     db_sess = db_session.create_session()
 
@@ -58,21 +58,17 @@ def cart():
     return render_template("cart.html", selected_cards=selected_cards, total=total)
 
 
-@app.route('/about')
+@application.route('/about')
 def about():
     return render_template('about.html')
 
 
-@app.route('/faq')
+@application.route('/faq')
 def faq():
     return render_template('faq.html')
 
 
 
-def main():
+if __name__ == '__main__':
     db_session.global_init("db/database.db")
     app.run(debug=True)
-
-
-if __name__ == '__main__':
-    main()
