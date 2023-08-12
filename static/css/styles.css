@@ -1,0 +1,92 @@
+/* styles.css */
+body {
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #2c2c2c !important; /* Цвет фона всего сайта */
+}
+
+.main-content {
+  flex: 1;
+  color: #fff;
+}
+
+.navbar {
+  /* background-color: #2E4052 !important;  Новый цвет хедера */
+}
+
+.navbar-toggler {
+  margin-right: 2vw; /* Отступ меню от правого края */
+}
+
+.navbar-brand{
+  margin-left: 2vw; /* Отступ логотипа от левого края */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 24px; /* Подберите размер шрифта по вашему усмотрению */
+}
+
+.navbar-brand img {
+  width: 70px; /* Задаем ширину логотипа */
+  height: auto; /* Автоматически подстраиваем высоту пропорционально ширине */
+  margin-right: 10px; /* отступ между лого и картинкой */
+}
+
+.navbar-brand,
+.navbar .nav-link {
+  color: #fff !important;
+}
+
+/* Добавляем отступ от левого края для выпадающего меню */
+.navbar-collapse {
+  margin-left: 20px; /* Измените значение отступа по вашему усмотрению */
+}
+
+/* Добавляем отступ справа для правых навигационных ссылок */
+.navbar-nav.ms-auto .nav-item:last-child {
+  margin-right: 2vw;
+}
+
+.navbar .nav-link:hover {
+  color: #FFC857 !important;
+}
+
+footer {
+  padding: 20px 0;
+  text-align: center;
+  flex-shrink: 0;
+  /* background-color: #768D89  !important;  Новый цвет футера */
+  color: #fff !important;
+}
+
+.card-body {
+  color: black !important;
+}
+
+/* Стили для кнопки "ЗАКАЗАТЬ" */
+#order-btn {
+  margin-top: 20px;
+}
+
+.nav-pills .nav-link {
+  color: #FFC857;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #2d220b;
+  color: white;
+}
+
+/* Стили для выделения выбранных карточек */
+.card.selected {
+  border: 3px solid #FFC857;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для изменения цвета текста внутри таблицы и удаления верхней границы */
+.table-white-text {
+  color: white; /* Цвет текста */
+  border-top: none; /* Удаление верхней границы */
+}
+

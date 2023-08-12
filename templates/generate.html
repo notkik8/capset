@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Ваш контент размещается здесь -->
+<div class="container mt-4">
+  <h2 class="mb-4 text-center d-flex justify-content-between align-items-center">
+    Выберите из каждой категории по товару
+    <button id="order-btn" class="btn btn-secondary btn-lg" disabled>ЗАКАЗАТЬ</button>
+  </h2>
+  
+  <!-- Навигационные переключатели (табы) -->
+  <div class="container d-flex justify-content-center">
+    <ul class="nav nav-pills mb-3" id="myTabs">
+      <li class="nav-item">
+        <a class="nav-link active" id="bases-tab" data-bs-toggle="tab" href="#bases" role="tab" aria-controls="bases" aria-selected="true">Базы</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="switches-tab" data-bs-toggle="tab" href="#switches" role="tab" aria-controls="switches" aria-selected="false">Свитчи</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="keycaps-tab" data-bs-toggle="tab" href="#keycaps" role="tab" aria-controls="keycaps" aria-selected="false">Кейкапы</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Содержимое каждого таба -->
+  <div class="tab-content mt-3" id="myTabContent">
+    <!-- Таб "Базы" -->
+    <div class="tab-pane fade show active" id="bases" role="tabpanel" aria-labelledby="bases-tab">
+      <div class="row">
+        {% for base in bases %}
+          <div class="col-sm-4 mb-4">
+            <div class="card bg-light {% if loop.index0 == selected_card_index_b %}selected{% endif %}" data-card-id="{{ base.id }}">
+              <a href="#" class="card-link text-decoration-none">
+                <img src="{{ base.image_url }}" class="card-img-top" alt="{{ base.name }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ base.name }}</h5>
+                  <p class="card-text">{{ base.description }}</p>
+                  <p class="card-text"><strong style="font-size: 20px">{{ base.price }}₽</strong></p>
+                </div>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Таб "Свитчи" -->
+    <div class="tab-pane fade" id="switches" role="tabpanel" aria-labelledby="switches-tab">
+      <div class="row">
+        {% for switch in switches %}
+          <div class="col-sm-4 mb-4">
+            <div class="card bg-light {% if loop.index0 == selected_card_index_s %}selected{% endif %}" data-card-id="{{ switch.id }}">
+              <a href="#" class="card-link text-decoration-none">
+                <img src="{{ switch.image_url }}" class="card-img-top" alt="{{ switch.name }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ switch.name }}</h5>
+                  <p class="card-text">{{ switch.description }}</p>
+                  <p class="card-text"><strong style="font-size: 20px">{{ switch.price }}₽</strong></p>
+                </div>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Таб "Кейкапы" -->
+    <div class="tab-pane fade" id="keycaps" role="tabpanel" aria-labelledby="keycaps-tab">
+      <div class="row">
+        {% for keycap in keycaps %}
+          <div class="col-sm-4 mb-4">
+            <div class="card bg-light {% if loop.index0 == selected_card_index_s %}selected{% endif %}" data-card-id="{{ keycap.id }}">
+              <a href="#" class="card-link text-decoration-none">
+                <img src="{{ keycap.image_url }}" class="card-img-top" alt="{{ keycap.name }}">
+                <div class="card-body">
+                  <h5 class="card-title">{{ keycap.name }}</h5>
+                  <p class="card-text">{{ keycap.description }}</p>
+                  <p class="card-text"><strong style="font-size: 20px">{{ keycap.price }}₽</strong></p>
+                </div>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cards = document.querySelectorAll(".card-link");
+    const orderBtn = document.getElementById("order-btn");
+
+    // Обработчик кликов на карточке
+    function onCardClick(event) {
+      const card = event.target.closest(".card");
+      if (card) {
+        const activeTab = document.querySelector(".tab-pane.show.active");
+        const selectedCards = activeTab.querySelectorAll(".card.selected");
+        const selectedCard = card.classList.contains("selected");
+
+        // Если уже выбранная карточка, то убираем класс "selected"
+        if (selectedCard) {
+          card.classList.remove("selected");
+        } else {
+          // Если выбранной карточки нет, то сначала убираем "selected" у всех карточек в текущем табе
+          selectedCards.forEach(function (c) {
+            c.classList.remove("selected");
+          });
+          // Затем добавляем класс "selected" только к текущей карточке
+          card.classList.add("selected");
+        }
+        updateOrderButtonState();
+      }
+    }
+
+    // Обновление состояния кнопки "ЗАКАЗАТЬ"
+    function updateOrderButtonState() {
+      let allCardsSelected = true;
+      const tabs = document.querySelectorAll(".tab-pane");
+      tabs.forEach(function (tab) {
+        const selectedCards = tab.querySelectorAll(".card.selected");
+        if (selectedCards.length !== 1) {
+          allCardsSelected = false;
+        }
+      });
+
+      if (allCardsSelected) {
+        orderBtn.disabled = false;
+        orderBtn.classList.remove("btn-secondary");
+        orderBtn.classList.add("btn-success");
+        orderBtn.addEventListener("click", function () {
+          window.location.href = "/cart";
+        });
+      } else {
+        orderBtn.disabled = true;
+        orderBtn.classList.remove("btn-success");
+        orderBtn.classList.add("btn-secondary");
+        orderBtn.removeEventListener("click", function () {
+          window.location.href = "/cart";
+        });
+      }
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener("click", onCardClick);
+    });
+
+    // Обработчик клика по кнопке "ЗАКАЗАТЬ"
+    orderBtn.addEventListener("click", function () {
+      const selectedCards = document.querySelectorAll(".card.selected");
+      const selectedCardIds = [];
+
+      selectedCards.forEach(function (card) {
+        const cardId = card.getAttribute("data-card-id");
+        selectedCardIds.push(cardId);
+      });
+
+      // Отправляем выбранные id карточек на сервер
+      fetch("/add_to_cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cardIds: selectedCardIds }),
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          if (data.success) {
+            window.location.href = "/cart"; // Перенаправляем на страницу корзины
+          } else {
+            alert("Произошла ошибка при добавлении в корзину.");
+          }
+        })
+        .catch(function (error) {
+          console.error("Ошибка:", error);
+        });
+    });
+  });
+</script>
+{% endblock %}

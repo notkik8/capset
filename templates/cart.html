@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Левая часть (корзина) -->
+    <div class="col-md-6">
+      <table class="table table-bordered table-white-text">
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Стоимость</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for card in selected_cards %}
+          <tr>
+            <td>{{ card.name }}</td>
+            <td>{{ card.price }} рублей</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="text-right mb-4">
+        <h3>Итого: {{ total|int }} рублей</h3>
+      </div>
+    </div>
+
+
+    
+
+
+    <!-- Правая часть (форма заказа) -->
+    <div class="col-md-6">
+      <h2>Введите данные для заказа:</h2>
+      <form action="/order" method="post">
+        <div class="form-group">
+          <label for="name">Имя</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="surname">Фамилия</label>
+          <input type="text" class="form-control" id="surname" name="surname" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Почта</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Номер телефона</label>
+          <input type="tel" class="form-control" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Адрес доставки</label>
+          <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить заказ</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
