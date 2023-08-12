@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, g
+from flask import Flask, render_template, request, session, g, jsonify
 from data.keyboard_base import Base
 from data.keyboard_switch import Switch
 from data.keyboard_keycap import Keycap
