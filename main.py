@@ -4,28 +4,28 @@ from data.keyboard_switch import Switch
 from data.keyboard_keycap import Keycap
 from data import db_session
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
-app.config['DEBUG'] = True
+application = Flask(__name__)
+application.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+
 
 def create_db_session():
     db_session.global_init("db/database.db")
     return db_session.create_session()
 
-@app.before_request
+@application.before_request
 def before_request():
     g.db = create_db_session()
 
-@app.teardown_request
+@application.teardown_request
 def teardown_request(exception=None):
     if hasattr(g, 'db'):
         g.db.close()
 
-@app.route('/')
+@application.route('/')
 def index():
     return render_template('index.html')
 
-@app.route("/generate", methods=["GET", "POST"])
+@application.route("/generate", methods=["GET", "POST"])
 def generate():
     bases = g.db.query(Base).all()
     switches = g.db.query(Switch).all()
@@ -33,7 +33,7 @@ def generate():
 
     return render_template("generate.html", bases=bases, switches=switches, keycaps=keycaps)
 
-@app.route("/add_to_cart", methods=["POST"])
+@application.route("/add_to_cart", methods=["POST"])
 def add_to_cart():
     data = request.json
     card_ids = data.get("cardIds", [])
@@ -42,7 +42,7 @@ def add_to_cart():
     
     return jsonify({"success": True})
 
-@app.route("/cart")
+@application.route("/cart")
 def cart():
     selected_card_ids = session.get("selected_card_ids", [])
     selected_cards = []
@@ -58,13 +58,13 @@ def cart():
 
     return render_template("cart.html", selected_cards=selected_cards, total=total)
 
-@app.route('/about')
+@application.route('/about')
 def about():
     return render_template('about.html')
 
-@app.route('/faq')
+@application.route('/faq')
 def faq():
     return render_template('faq.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    application.run(debug=True)
