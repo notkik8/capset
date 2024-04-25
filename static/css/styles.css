@@ -1,4 +1,5 @@
 /* styles.css */
+
 body {
   font-family: 'Montserrat', sans-serif;
   min-height: 100vh;
@@ -57,7 +58,7 @@ footer {
   text-align: center;
   flex-shrink: 0;
   /* background-color: #768D89  !important;  Новый цвет футера */
-  color: #fff !important;
+  color: #FFC857 !important;
 }
 
 .card-body {
@@ -78,10 +79,21 @@ footer {
   color: white;
 }
 
+.card bg-light selected {
+  background-color: #2d220b;
+}
+
+.card {
+  border: 3px solid #fff;
+  border-radius: 10px solid #fff;
+  color: #2d220b !important;
+}
 /* Стили для выделения выбранных карточек */
 .card.selected {
+  border-radius: 15px;
   border: 3px solid #FFC857;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  background-color: #FFC857 !important;
 }
 
 /* Стили для изменения цвета текста внутри таблицы и удаления верхней границы */
@@ -90,3 +102,461 @@ footer {
   border-top: none; /* Удаление верхней границы */
 }
 
+.dark-input {
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+}
+
+.dark-input input[type="text"],
+.dark-input input[type="email"],
+.dark-input textarea {
+  outline: none;
+  box-shadow: none;
+  border-color: #666;
+}
+
+
+.dark-input input[type="text"] {
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+}
+
+.dark-button {
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+}
+
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+/* Общие стили для text-field и text-field__inp */
+.text-field {
+  width: 350px;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.text-field__inp {
+  width: 100%;
+  padding: 10px 0;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid rgb(159, 159, 159);
+  outline: none;
+  font-size: 18px;
+  transition: border-color .3s;
+}
+
+.text-field__inp:focus {
+  border-color: rgb(255, 200, 87);
+}
+
+/* Стили для text-field__placeholder */
+.text-field__placeholder {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 10px;
+  color: rgb(159, 159, 159);
+  font-size: 18px;
+  pointer-events: none;
+  transform-origin: left;
+  transition: top .3s, transform .3s, color .3s;
+}
+
+/* При фокусе или если поле заполнено, перемещаем текст вверх и меняем стиль */
+.text-field__inp:focus + .text-field__placeholder {
+  top: -15px;
+  transform: scale(.85);
+  color: rgb(255, 200, 87);
+}
+
+
+
+.text-field__inp:focus + .text-field__placeholder,
+.text-field__inp:not(:focus):valid + .text-field__placeholder,
+.form-control:focus + .text-field__placeholder,
+.form-control:not(:focus):valid + .text-field__placeholder {
+  top: -15px;
+  transform: scale(.85);
+  color: rgb(255, 200, 87);
+}
+
+.btn {
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+  margin-bottom: 30px;
+}
+
+.btn:hover {
+  background-color: #666;
+  border-color: #333;
+}
+
+.dark-button {
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+  margin-bottom: 30px;
+}
+
+.dark-button:hover {
+  background-color: #666;
+  border-color: #333;
+}
+
+#order-btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#order-btn:hover {
+  background-color: rgb(255, 200, 87); /* Измените цвет фона по вашему вкусу */
+  transform: scale(1.1); /* Измените значение масштаба и анимацию, как вам нравится */
+}
+
+ /* Добавляем стили для анимации кнопки СТАРТ*/
+ #start-btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#start-btn:hover {
+  background-color: #28a745; /* Измените цвет фона по вашему вкусу */
+  transform: scale(1.1); /* Измените значение масштаба и анимацию, как вам нравится */
+}
+
+/* Стили для корзины */ 
+.cart-container {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для таблицы */
+.table {
+  background-color: transparent;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  background-color: transparent; /* Убираем заливку внутри ячеек */
+  border: 1px solid rgb(255, 200, 87); /* Цвет сетки */
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+  color: white; /* Устанавливаем белый цвет текста в ячейках */
+}
+
+/* Установка цвета для "НАЗВАНИЕ" */
+.table th:first-child,
+.table td:first-child {
+  color: black; /* Устанавливаем черный цвет текста для первой (НАЗВАНИЕ) ячейки */
+}
+
+/* Установка белого цвета для "ЦЕНА" */
+.table th:nth-child(6),
+.table td:last-child {
+  color: white; /* Устанавливаем белый цвет текста для шестой (ЦЕНА) и последней ячеек */
+}
+
+/* Удаление цвета фона и текста заголовков */
+.table th {
+  background-color: transparent;
+  font-weight: inherit;
+}
+
+/* Установка белого цвета для "СТОИМОСТЬ" */
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  color: white; /* Устанавливаем белый цвет текста для пятой (СТОИМОСТЬ) ячейки */
+}
+
+/* Удаление цвета текста итогового блока */
+.text-right {
+  text-align: right;
+}
+
+h3 {
+  font-size: 24px;
+  color: inherit;
+  margin-top: 10px;
+}
+
+
+.background-clip{
+  position: absolute;
+  z-index: -1;
+  opacity: 30%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+@media (min-aspect-ratio:16/9) {
+  .background-clip{
+      width: 100%;
+      height: auto;
+  }
+}
+
+@media (max-aspect-ratio:16/9) {
+  .background-clip{
+      width: auto;
+      height: 100%;
+  }
+}
+
+.page-content{
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+/* Закрываем lightbox */
+.lightbox {
+  display: none;
+  
+}
+
+/* Открываем lightbox */
+.lightbox:target {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Содержимое lightbox  */
+.lightbox figcaption {
+  width: 25rem;
+  position: relative;
+  padding: 1.5em;
+  background-color: #333;
+   border-radius: 10px;
+}
+
+/* Кнопка закрытия */
+.lightbox .close {
+  position: relative;
+  display: block;
+}
+
+.lightbox .close::after {
+  right: -1rem;
+  top: -1rem;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  display: flex;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-radius: 50%;
+  color: white;
+  content: "X";
+  cursor: pointer;
+}
+
+/* Обёртка lightbox  */
+.lightbox .close::before {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  content: "";
+  cursor: default;
+}
+
+.card-img-top {
+  border-radius: 10px;
+}
+
+.material-symbols-outlined {
+  color: rgb(255, 200, 87);
+}
+
+/* Убираем белую обводку */
+.accordion-button:focus,
+.accordion-button:active {
+    box-shadow: none;
+    border-color: transparent; /* Цвет обводки при фокусе и активном состоянии */
+}
+
+/* Изменяем цвет текста при нажатии */
+.accordion-button:focus,
+.accordion-button:active,
+.accordion-button:hover {
+    background-color: #fff; /* Замените "your_desired_color" на цвет, который вы хотите использовать */
+    color: #000; /* Цвет текста на кнопке */
+    outline: none;
+}
+
+/* Изменяем цвет фона аккордеонных кнопок при наведении */
+.accordion-button:hover {
+    background-color: rgb(255, 200, 87); /* Замените "your_hover_color" на цвет при наведении */
+    outline: none;
+}
+
+/* Закрываем lightbox */
+.lightboxhelp {
+  display: none;
+}
+
+/* Открываем lightbox */
+.lightboxhelp:target {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:large;
+  z-index: 999;
+}
+
+/* Содержимое lightbox  */
+.lightboxhelp figcaption {
+  width: 25rem;
+  position: relative;
+  padding: 1.5em;
+  background-color: rgb(255, 200, 87);
+  border-radius: 10px;
+  color: #000;
+}
+
+/* Кнопка закрытия */
+.lightboxhelp .close {
+  position: relative;
+  display: block;
+}
+
+.lightboxhelp .close::after {
+  right: -1rem;
+  top: -1rem;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  display: flex;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  border-radius: 50%;
+  color: white;
+  content: "X";
+  cursor: pointer;
+}
+
+/* Обёртка lightbox  */
+.lightboxhelp .close::before {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7);
+  content: "";
+  cursor: default;
+}
+
+/* Fade-in animation */
+.lightboxhelp:target .lightboxhelp {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Fade-out animation */
+.lightboxhelp:not(:target) .lightboxhelp {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.size span {
+  font-size: 11px;
+}
+
+.color span {
+  font-size: 11px;
+}
+
+.product-deta {
+  margin-right: 70px;
+}
+
+.text-grey {
+  color: #a39f9f;
+}
+
+.qty i {
+  font-size: 11px;
+}
+
+.contact-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20vh; /* Increase this value to move the section further down */
+}
