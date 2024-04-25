@@ -1,63 +1,83 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-4">
-  <div class="row">
-    <!-- Левая часть (корзина) -->
-    <div class="col-md-6">
-      <table class="table table-bordered table-white-text">
-        <thead>
-          <tr>
-            <th>Название</th>
-            <th>Стоимость</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for card in selected_cards %}
-          <tr>
-            <td>{{ card.name }}</td>
-            <td>{{ card.price }}₽</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
 
-      <div class="text-right mb-4">
-        <h3>Итого: {{ total|int }}₽</h3>
+
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Левая часть (корзина) -->
+ <div class="col-md-8">
+        <div class="container ">
+          <div class="d-flex justify-content-center row">
+              <div class="col-md-8">
+                  <div>
+                      <h2>Корзина:</h2>
+                      {% for card in selected_cards %}
+                      </div>
+                      <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
+                          <div class="mr-1"><img class="rounded" src="{{ card.image_url }}" width ="80px" ></div>
+                          <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold" style="color: black">{{ card.name }}</span>
+                              <div class="d-flex flex-row product-desc">
+                              </div>
+                          </div>
+                          <div class="content align-items-center">
+                              <h5 class="text-grey justify-content-between">{{ card.price }}₽
+                              </h5>
+                          </div>
+                          <div class="d-flex align-items-center"><a href="#{{ card.id }}"><span class="material-symbols-outlined">
+                            more_vert
+                            </span></a>
+                          
+
+                            <div class="lightbox" id="{{ card.id }}">
+                              <figure>
+                                <a href="#" class="close"></a>
+                                <figcaption>
+                                  <h5 class="card-title" style="margin-bottom: 10px;"><strong>{{ card.name }}</strong></h5>
+                                  <img src="{{ card.image_url }}" class="card-img-top" style="margin-top: 10px" alt="{{ card.name }}">
+                                  <p class="card-text" style="margin-top: 10px">{{ card.description }}</p>
+                                  <strong style="font-size: 20px" style="margin-top: 10px">{{ card.price }}₽</strong>
+                                </figcaption>
+                              </figure>
+                            </div>
+                          </div>
+                      
+                      {% endfor %}
+                  
+                  </div>
+                  <div class="text-right mb-4">
+                    <h3 style="color: rgb(255, 200, 87);" >Итого: {{ total|int }}₽</h3>
+                  </div>
+                  </div>
+          </div>
       </div>
     </div>
 
 
-    
+        <!-- Правая часть (форма заказа) -->
+        <div class="col-md-4">
+          <h2>Введите данные для заказа:</h2>
+          <form action="/order" method="post">
+            <div class="form-group text-field">
+              <input class="text-field__inp" type="text" id="telegram" name="telegram" required>
+              <label class="text-field__placeholder" for="telegram">Ник в telegram</label>
+            </div>
+            <div class="form-group text-field">
+              <input class="text-field__inp" type="text" id="mail" name="mail" required>
+              <label class="text-field__placeholder" for="mail">Почта</label>
+            </div>
+            <div class="form-group text-field">
+              <input class="text-field__inp" type="text" id="address" name="address" required>
+              <label class="text-field__placeholder" for="address">Адрес</label>
+            </div>
+            <button type="submit" class="btn btn-primary dark-button" id="order-btn">Отправить заказ 📝</button>
+          </form>
+        </div>
 
 
-    <!-- Правая часть (форма заказа) -->
-    <div class="col-md-6">
-      <h2>Введите данные для заказа:</h2>
-      <form action="/order" method="post">
-        <div class="form-group">
-          <label for="name">Имя</label>
-          <input type="text" class="form-control" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="surname">Фамилия</label>
-          <input type="text" class="form-control" id="surname" name="surname" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Почта</label>
-          <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="phone">Номер телефона</label>
-          <input type="tel" class="form-control" id="phone" name="phone" required>
-        </div>
-        <div class="form-group">
-          <label for="address">Адрес доставки</label>
-          <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Отправить заказ</button>
-      </form>
-    </div>
+
+
+
   </div>
 </div>
 {% endblock %}
