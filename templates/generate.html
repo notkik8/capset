@@ -3,89 +3,159 @@
 {% block content %}
 <!-- Ваш контент размещается здесь -->
 <div class="container mt-4">
-  <h2 class="mb-4 text-center d-flex justify-content-between align-items-center">
-    Выберите из каждой категории по товару
-    <button id="order-btn" class="btn btn-secondary btn-lg" disabled>ЗАКАЗАТЬ</button>
+  
+  <h2 class="mb-4 text-center d-flex justify-content-between align-items-center animate__animated animate__fadeIn">
+    <p>Выберите из каждой категории по товару
+      <a href="#help">
+    <span style="text-decoration: none; margin-left: 5px;" style="margin-right: 5px;"class="material-symbols-outlined">
+      help
+      </span>
+    </a>
+
+    <div class="lightboxhelp" id="help">
+      <figure>
+        <a href="#" class="close"></a>
+        <figcaption>
+          Итак, что бы собрать клавиатуру нужно выбрать по 1 товару из каждой позиции. Кнопки "БАЗА", "СВИТЧИ" и "КЕЙКАПЫ" доступны для выбора в середине страницы сверху. Чтобы разблокировать кнопку "ЗАКАЗАТЬ", выберите каждый товар по вашему вкусу. Если у вас возникнут трудности, наша команда готова помочь!
+        </figcaption>
+      </figure>
+    </div>
+    </p>
+    
+    
+  <button id="order-btn" class="btn btn-secondary btn-lg" disabled>ЗАКАЗАТЬ</button>
   </h2>
+
   
   <!-- Навигационные переключатели (табы) -->
-  <div class="container d-flex justify-content-center">
-    <ul class="nav nav-pills mb-3" id="myTabs">
-      <li class="nav-item">
-        <a class="nav-link active" id="bases-tab" data-bs-toggle="tab" href="#bases" role="tab" aria-controls="bases" aria-selected="true">Базы</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="switches-tab" data-bs-toggle="tab" href="#switches" role="tab" aria-controls="switches" aria-selected="false">Свитчи</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="keycaps-tab" data-bs-toggle="tab" href="#keycaps" role="tab" aria-controls="keycaps" aria-selected="false">Кейкапы</a>
-      </li>
-    </ul>
-  </div>
+<div class="container d-flex justify-content-center">
+  <ul class="nav nav-pills mb-3" id="myTabs">
+    <li class="nav-item d-flex align-items-center">
+      <a class="nav-link active" id="bases-tab" data-bs-toggle="tab" href="#bases" role="tab" aria-controls="bases" aria-selected="true">Базы</a>
+      <span class="material-symbols-outlined">
+        arrow_forward_ios
+      </span>
+    </li>
+    <li class="nav-item d-flex align-items-center">
+      <a class="nav-link" id="switches-tab" data-bs-toggle="tab" href="#switches" role="tab" aria-controls="switches" aria-selected="false">Свитчи</a>
+      <span class="material-symbols-outlined">
+        arrow_forward_ios
+      </span>
+    </li>
+    <li class="nav-item d-flex align-items-center">
+      <a class="nav-link" id="keycaps-tab" data-bs-toggle="tab" href="#keycaps" role="tab" aria-controls="keycaps" aria-selected="false">Кейкапы</a>
+    </li>
+  </ul>
+</div>
+
 
   <!-- Содержимое каждого таба -->
   <div class="tab-content mt-3" id="myTabContent">
     <!-- Таб "Базы" -->
-    <div class="tab-pane fade show active" id="bases" role="tabpanel" aria-labelledby="bases-tab">
-      <div class="row">
-        {% for base in bases %}
-          <div class="col-sm-4 mb-4">
-            <div class="card bg-light {% if loop.index0 == selected_card_index_b %}selected{% endif %}" data-card-id="{{ base.id }}">
-              <a href="#" class="card-link text-decoration-none">
-                <img src="{{ base.image_url }}" class="card-img-top" alt="{{ base.name }}">
-                <div class="card-body">
-                  <h5 class="card-title">{{ base.name }}</h5>
-                  <p class="card-text">{{ base.description }}</p>
-                  <p class="card-text"><strong style="font-size: 20px">{{ base.price }}₽</strong></p>
-                </div>
-              </a>
+<div class="tab-pane fade show active" id="bases" role="tabpanel" aria-labelledby="bases-tab">
+  <div class="row">
+    {% for base in bases %}
+      <div class="col-sm-4 mb-4">
+        <div class="card bg-light {% if loop.index0 == selected_card_index_b %}selected{% endif %}" data-card-id="{{ base.id }}">
+          <a href="#" class="card-link text-decoration-none">
+            <img src="{{ base.image_url }}" class="card-img-top" alt="{{ base.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ base.name }}</h5>
+              <!-- <p class="card-text">{{ base.description }}</p> -->
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="card-text"><strong style="font-size: 20px">{{ base.price }}₽</strong></p>
+                <a href="#{{base.id}}" class="btn btn-primary">Подробнее</a>
+              </div>
             </div>
-          </div>
-        {% endfor %}
+          </a>
+        </div>
       </div>
-    </div>
-
-    <!-- Таб "Свитчи" -->
-    <div class="tab-pane fade" id="switches" role="tabpanel" aria-labelledby="switches-tab">
-      <div class="row">
-        {% for switch in switches %}
-          <div class="col-sm-4 mb-4">
-            <div class="card bg-light {% if loop.index0 == selected_card_index_s %}selected{% endif %}" data-card-id="{{ switch.id }}">
-              <a href="#" class="card-link text-decoration-none">
-                <img src="{{ switch.image_url }}" class="card-img-top" alt="{{ switch.name }}">
-                <div class="card-body">
-                  <h5 class="card-title">{{ switch.name }}</h5>
-                  <p class="card-text">{{ switch.description }}</p>
-                  <p class="card-text"><strong style="font-size: 20px">{{ switch.price }}₽</strong></p>
-                </div>
-              </a>
-            </div>
-          </div>
-        {% endfor %}
+      
+      <div class="lightbox" id="{{base.id}}">
+        <figure>
+          <a href="#" class="close"></a>
+          <figcaption>
+            <h5 class="card-title" style="margin-bottom: 10px;"><strong>{{ base.name }}</strong></h5>
+            <img src="{{ base.image_url }}" class="card-img-top" style="margin-top: 10px" alt="{{ base.name }}">
+            <p class="card-text" style="margin-top: 10px">{{ base.description }}</p>
+            <strong style="font-size: 20px" style="margin-top: 10px">{{ base.price }}₽</strong>
+          </figcaption>
+        </figure>
       </div>
-    </div>
-
-    <!-- Таб "Кейкапы" -->
-    <div class="tab-pane fade" id="keycaps" role="tabpanel" aria-labelledby="keycaps-tab">
-      <div class="row">
-        {% for keycap in keycaps %}
-          <div class="col-sm-4 mb-4">
-            <div class="card bg-light {% if loop.index0 == selected_card_index_s %}selected{% endif %}" data-card-id="{{ keycap.id }}">
-              <a href="#" class="card-link text-decoration-none">
-                <img src="{{ keycap.image_url }}" class="card-img-top" alt="{{ keycap.name }}">
-                <div class="card-body">
-                  <h5 class="card-title">{{ keycap.name }}</h5>
-                  <p class="card-text">{{ keycap.description }}</p>
-                  <p class="card-text"><strong style="font-size: 20px">{{ keycap.price }}₽</strong></p>
-                </div>
-              </a>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+    {% endfor %}
   </div>
 </div>
+
+
+   <!-- Таб "Свитчи" -->
+<div class="tab-pane fade" id="switches" role="tabpanel" aria-labelledby="switches-tab">
+  <div class="row">
+    {% for switch in switches %}
+      <div class="col-sm-4 mb-4">
+        <div class="card bg-light {% if loop.index0 == selected_card_index_s %}selected{% endif %}" data-card-id="{{ switch.id }}">
+          <a href="#" class="card-link text-decoration-none">
+            <img style="border-radius: 10px;" src="{{ switch.image_url }}" class="card-img-top" alt="{{ switch.name }}" >
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title" >{{ switch.name }}</h5>
+              <!-- <p class="card-text">{{ switch.description }}</p> -->
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="card-text"><strong style="font-size: 20px">{{ switch.price }}₽</strong></p>
+                <a href="#{{switch.id}}" class="btn btn-primary">Подробнее</a>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="lightbox" id="{{switch.id}}">
+        <figure>
+          <a href="#" class="close"></a>
+          <figcaption>
+            <h5 class="card-title" style="margin-bottom: 10px;"><strong>{{ switch.name }}</strong></h5>
+            <img src="{{ switch.image_url }}" style="margin-top: 10px;" class="card-img-top" alt="{{ switch.name }}">
+            <p class="card-text" style="margin-top: 10px">{{ switch.description }}</p>
+            <strong style="font-size: 20px" style="margin-top: 10px">{{ switch.price }}₽</strong>
+          </figcaption>
+        </figure>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+    <!-- Таб "Кейкапы" -->
+<div class="tab-pane fade" id="keycaps" role="tabpanel" aria-labelledby="keycaps-tab">
+  <div class="row">
+    {% for keycap in keycaps %}
+      <div class="col-sm-4 mb-4">
+        <div class="card bg-light {% if loop.index0 == selected_card_index_s %}selected{% endif %}" data-card-id="{{ keycap.id }}">
+          <a href="#" class="card-link text-decoration-none">
+            <img src="{{ keycap.image_url }}" class="card-img-top" alt="{{ keycap.name }}">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ keycap.name }}</h5>
+              <!-- <p class="card-text">{{ keycap.description }}</p> -->
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="card-text"><strong style="font-size: 20px">{{ keycap.price }}₽</strong></p>
+                <a href="#{{keycap.id}}" class="btn btn-primary">Подробнее</a>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="lightbox" id="{{keycap.id}}">
+        <figure>
+          <a href="#" class="close"></a>
+          <figcaption>
+            <h5 class="card-title" style="margin-bottom: 10px">{{ keycap.name }}</h5>
+            <img src="{{ keycap.image_url }}" style="margin-top: 10px" class="card-img-top" alt="{{ keycap.name }}">
+            <p class="card-text" style="margin-top: 10px">{{ keycap.description }}</p>
+            <strong style="font-size: 20px" style="margin-top: 10px">{{ keycap.price }}₽</strong>
+          </figcaption>
+        </figure>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
 
 
 <script>
@@ -93,7 +163,6 @@
     const cards = document.querySelectorAll(".card-link");
     const orderBtn = document.getElementById("order-btn");
 
-    // Обработчик кликов на карточке
     function onCardClick(event) {
       const card = event.target.closest(".card");
       if (card) {
@@ -101,22 +170,18 @@
         const selectedCards = activeTab.querySelectorAll(".card.selected");
         const selectedCard = card.classList.contains("selected");
 
-        // Если уже выбранная карточка, то убираем класс "selected"
         if (selectedCard) {
           card.classList.remove("selected");
         } else {
-          // Если выбранной карточки нет, то сначала убираем "selected" у всех карточек в текущем табе
           selectedCards.forEach(function (c) {
             c.classList.remove("selected");
           });
-          // Затем добавляем класс "selected" только к текущей карточке
           card.classList.add("selected");
         }
         updateOrderButtonState();
       }
     }
 
-    // Обновление состояния кнопки "ЗАКАЗАТЬ"
     function updateOrderButtonState() {
       let allCardsSelected = true;
       const tabs = document.querySelectorAll(".tab-pane");
@@ -131,34 +196,28 @@
         orderBtn.disabled = false;
         orderBtn.classList.remove("btn-secondary");
         orderBtn.classList.add("btn-success");
-        orderBtn.addEventListener("click", function () {
-          window.location.href = "/cart";
-        });
       } else {
         orderBtn.disabled = true;
         orderBtn.classList.remove("btn-success");
         orderBtn.classList.add("btn-secondary");
-        orderBtn.removeEventListener("click", function () {
-          window.location.href = "/cart";
-        });
       }
     }
+
+    function getSelectedCardIds() {
+      const selectedCards = document.querySelectorAll(".card.selected");
+      const selectedCardIds = Array.from(selectedCards, card => card.getAttribute("data-card-id"));
+      return selectedCardIds;
+    }
+
+    updateOrderButtonState();
 
     cards.forEach(function (card) {
       card.addEventListener("click", onCardClick);
     });
 
-    // Обработчик клика по кнопке "ЗАКАЗАТЬ"
     orderBtn.addEventListener("click", function () {
-      const selectedCards = document.querySelectorAll(".card.selected");
-      const selectedCardIds = [];
+      const selectedCardIds = getSelectedCardIds();
 
-      selectedCards.forEach(function (card) {
-        const cardId = card.getAttribute("data-card-id");
-        selectedCardIds.push(cardId);
-      });
-
-      // Отправляем выбранные id карточек на сервер
       fetch("/add_to_cart", {
         method: "POST",
         headers: {
@@ -171,7 +230,7 @@
         })
         .then(function (data) {
           if (data.success) {
-            window.location.href = "/cart"; // Перенаправляем на страницу корзины
+            window.location.href = "/cart";
           } else {
             alert("Произошла ошибка при добавлении в корзину.");
           }
@@ -182,4 +241,5 @@
     });
   });
 </script>
+
 {% endblock %}
